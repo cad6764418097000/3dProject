@@ -32,7 +32,7 @@ class Ellipse extends Object{
     for (var j = 0; j < verticeDensity; j++) {
       // z is the new x and x is the new y in this dimension
       // take one half of the circle and rotate it
-      if (j < verticeDensity / 2) {
+      if (j < verticeDensity / 2 + 1) {
         var opIndex = verticeDensity - j;
         if(opIndex % verticeDensity >= 0){  // Reset opIndex to the overflow if it's greater than the number of verticies
           opIndex = opIndex % verticeDensity;
@@ -58,18 +58,29 @@ class Ellipse extends Object{
           vertices.push(dPoint);
 
           // Appends the edges for each circle   i === verticeDensity - 1
+
           let currentIndex = j * (verticeDensity) + i;
+          // Horizontal edges
           if (currentIndex === verticeDensity * (j + 1) - 1) {
             edges.push([j * (verticeDensity), currentIndex])
           }else{
             edges.push([currentIndex, currentIndex + 1]);
           }
-        }
 
+          // Vertical edges
+          if (j !== 0 ) {
+            edges.push([currentIndex, currentIndex + verticeDensity]);
+          }
+        }
 
 
       }
     }
+
+
+
+
+
 
     this.vertices = vertices;
     this.edges = edges;
@@ -100,7 +111,7 @@ class Cuboid extends Object{
 
 
 //x, y, z, r, verticeDensity
-var sphere = new Ellipse(200,200,0, 100,20);
+var sphere = new Ellipse(200,200,0, 200,10);
 console.log(sphere);
 sphere.draw(true);
 
